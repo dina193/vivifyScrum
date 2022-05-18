@@ -1,0 +1,6 @@
+{
+    "addNewBoardDiv": "div[class='vs-c-organization-boards__item--add-new']",
+    "orgNameInput": "input[name='name']",
+    "updateBtn": "button[type='submit']",
+    "deleteBtn": ".vs-c-btn--warning"
+}

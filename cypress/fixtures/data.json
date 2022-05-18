@@ -1,0 +1,17 @@
+{
+    "user": {
+        "email": "dina@gmail.com",
+        "password": "test1234"
+    },
+
+    "invalidEmail": {
+        "emailNoMonkeySign": "dinagmail.com",
+        "emailMissingDot": "dina@gmailcom",
+        "emailTwoDots": "dina@gmail..com",
+        "wrongEmail": "dinaa1@gmail.com"
+    },
+
+    "invalidPassword": {
+        "wrongPassword": "test1223"
+    }
+}
