@@ -1,0 +1,13 @@
+{
+    "taskTitleH2": "h2[class='vs-c-task__title']",
+    "taskTitleInput": "textarea[name='item_name']",
+    "saveTitleBtn": "button[name='item_name_save']",
+    "sprintInfoDropdownBtn": "div[name='sprint-info-dropdown']",
+    "columnFromDropdownLi": ".vs-c-dropdown > li[class='el-dropdown-menu__item']",
+    "closeTaskBtn": "button[name='close-item-modal-btn']",
+    "taskOptionsBtn": "div[title='Options'] > button",
+    "deleteTaskLi": "li[name='delete-option']",
+    "editDescriptionBtn": "div[title='Edit Description'] > button",
+    "descriptionTextarea": "textarea[name='description']",
+    "saveDescBtn": "button[name='item_description_save']"
+}

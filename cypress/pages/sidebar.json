@@ -1,0 +1,20 @@
+{
+    "mainSidebar": {
+        "myAccountAvatarImg": "[class='vs-l-sidebar__user'] img"
+    },
+
+    "sideMenu": {
+        "organizationOptions": {
+            "boardsBtn": "li[data-cy='organization-boards']",
+            "configurationBtn": "li[data-cy='organization-configuration']"
+        },
+    
+        "boardOptions": {
+            "configurationBtn": "li[data-cy='board-configuration']"
+        },
+        
+        "accountOptions": {
+            "profileBtn": "li[data-cy='account-profile']"
+        }
+    }
+}

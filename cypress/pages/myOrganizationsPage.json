@@ -1,0 +1,12 @@
+{
+    "addNewOrgSpan": "span[class='vs-c-my-organization__avatar']",
+    "createdOrgDiv": "div[class='vs-c-my-organization organization-list-item']",
+    "organizationTitleH2": "h2[class='vs-c-my-organization__title']",
+    "organizationTitleInput": "input[name='change-organization-name']",
+    "checkBtn": "[class='el-icon-check']",
+    "closeBtn": "[class='vs-c-my-organization__header'] [class='el-icon-close']",
+    "archiveOrgHoverBtn": "span[title='Archive Organization']",
+    "editOrgHoverBtn": "span[title='Edit Organization']",
+    "addNewProjectBtn": "li[title='Add new Project']",
+    "addNewBoardBtn": "li[title='Add new Board']"
+}

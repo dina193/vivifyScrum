@@ -1,0 +1,7 @@
+{
+    "orgNameInput": "input[name='name']",
+    "closeModalBtn": "[name='close-new-board-modal-btn'] > i",
+    "nextBtn": "button[name='next_btn']",
+    "cancelBtn": "button[name='prev_btn']",
+    "orgLogoInput": "input[name='file']"
+}

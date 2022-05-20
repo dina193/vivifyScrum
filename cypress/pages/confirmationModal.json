@@ -1,0 +1,8 @@
+{
+    "closeBtn": "div[class='vs-c-modal__body'] button[type='button']",
+    "okBtn": "div[class='vs-c-modal--features-button'] button",
+    "confirmActionPassInput": "input[type='password']",
+    "noBtn": "button[name='cancel-btn']",
+    "yesBtn": "button[name='save-btn']",
+    "sprintGoalInput": "textarea[name='sprint_goal']"
+}

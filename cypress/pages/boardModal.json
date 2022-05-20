@@ -1,0 +1,13 @@
+{
+    "orgDropdownBtn": "[class='el-input'] > i",
+    "orgFromDropdownLi": ".el-select-dropdown__item",
+    "boardTitleInput": "input[name='name']",
+    "closeModalBtn": "button[name='close-new-board-modal-btn']",
+    "nextBtn": "button[name='next_btn']",
+    "previousBtn": "button[name='prev_btn']",
+    "scrumBoardCheckbox": "span[name='type_scrum']",
+    "kanbanBoardCheckbox": "span[name='type_kanban']",
+    "boardLogoInput": "input[name='file']",
+    "importBoardInput": "input[type='text']",
+    "boardFromDropdownLi": "[class='el-select-dropdown'] li"
+}

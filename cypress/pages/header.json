@@ -1,0 +1,4 @@
+{
+    "vsLogoBtn": "img[class='vs-c-site-sign']",
+    "logOutBtn": "div[class='vs-c-logout']"
+}
