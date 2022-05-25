@@ -1,5 +1,8 @@
 {
     "emailInput": "input[type='email']",
     "passwordInput": "input[type='password']",
-    "loginBtn": "button[type='submit']"
+    "loginBtn": "button[type='submit']",
+    "loginHeading": "[class='vs-c-modal__body'] h1",
+    "validationMsgSpan": "[class='vs-c-form-item__error-wrapper'] > span",
+    "validationOopsSpan": "span[class='el-form-item__error']"
 }

@@ -10,7 +10,8 @@
         },
     
         "boardOptions": {
-            "configurationBtn": "li[data-cy='board-configuration']"
+            "configurationBtn": "li[data-cy='board-configuration']",
+            "productBacklogBtn": "li[data-cy='board-backlog']"
         },
         
         "accountOptions": {
