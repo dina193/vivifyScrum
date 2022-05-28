@@ -1,7 +1,7 @@
 {
     "boardTitleInput": "input[data-vv-as='board title']",
     "boardCodeInput": "input[data-vv-as='board code']",
-    "updateBtn": "button[type='submit'] svg",
+    "updateBtn": "button[type='submit']",
     "deleteBtn": ".vs-c-btn--warning",
     "addColumnBtn": ".vs-add-column-btn-gap > button",
     "columnNameInput": "input[name='column-name']",
@@ -12,5 +12,6 @@
     "startSprintLi": ".vs-u-actions li",
     "addTaskBtn": ".vs-c-task-list button",
     "taskTitleTextarea": "textarea[name='item_name']",
-    "taskCardDiv": "div[class='vs-c-task-card__body']"
+    "taskCardDiv": "div[class='vs-c-task-card__body']",
+    "validationMsgSpan": "[class='vs-c-form-item__error-wrapper'] > span"
 }

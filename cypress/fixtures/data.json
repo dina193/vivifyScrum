@@ -13,5 +13,14 @@
 
     "invalidPassword": {
         "wrongPassword": "test1223"
+    },
+
+    "validationMessages": {
+        "emailValidation": "The email field must be a valid email",
+        "passwordValidation": "The password field is required",
+        "emailPassMismatch": "Oops! Your email/password combination is incorrect",
+        "requiredNameField": "The name field is required",
+        "requiredBoardTitle": "The board title field is required",
+        "boardTitleMoreChars": "The board title field may not be greater than 50 characters"
     }
 }

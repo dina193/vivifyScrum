@@ -4,5 +4,6 @@
     "confirmActionPassInput": "input[type='password']",
     "noBtn": "button[name='cancel-btn']",
     "yesBtn": "button[name='save-btn']",
-    "sprintGoalInput": "textarea[name='sprint_goal']"
+    "sprintGoalInput": "textarea[name='sprint_goal']",
+    "confirmActionH4": "[class='vs-c-modal__header'] > h4"
 }
