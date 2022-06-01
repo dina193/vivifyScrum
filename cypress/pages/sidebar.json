@@ -1,6 +1,7 @@
 {
     "mainSidebar": {
-        "myAccountAvatarImg": "[class='vs-l-sidebar__user'] img"
+        "myAccountAvatarImg": "[class='vs-l-sidebar__user'] img",
+        "orgFromSidebarSpan": "span[class='vs-c-list__oragnisation-item']"
     },
 
     "sideMenu": {

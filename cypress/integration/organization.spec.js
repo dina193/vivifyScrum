@@ -1,140 +1,71 @@
 import data from "../fixtures/data.json";
-import organizationModal from "../pages/organizationModal.json";
-import loginPage from "../pages/loginPage.json";
-import myOrganizations from "../pages/myOrganizationsPage.json";
-import modal from "../pages/confirmationModal.json";
-import sidebar from "../pages/sidebar.json";
-import orgPage from "../pages/organizationPage.json";
-import header from "../pages/header.json";
+import Login from "../support/classes/login";
+import Organization from "../support/classes/organization";
 
+const login = new Login();
+const org = new Organization();
 
 describe("Organization CRUD", () => {
-    before(() => {
+    beforeEach(() => {
         cy.visit("/login");
 
-        cy.get(loginPage.emailInput).type(data.user.email);
+        login.loginViaUI(data.user.email, data.user.password);
 
-        cy.get(loginPage.passwordInput).type(data.user.password);
-
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.url().should("contain", "/my-organizations");
+        login.assertUserIsLoggedIn();
     });
 
     after(() => {
-        cy.get(sidebar.mainSidebar.myAccountAvatarImg)
-            .should("be.visible")
-            .click();
+        login.logOutViaUI();
 
-        cy.get(sidebar.sideMenu.accountOptions.profileBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(header.logOutBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(loginPage.loginHeading).should("be.visible");
+        login.assertUserIsLoggedOut();
     });
 
     it("Create organization - no organization name", () => {
-        cy.get(myOrganizations.addNewOrgSpan)
-            .should("be.visible")
-            .click();
+        org.createOrgInvalidTry(data.strings.empty);
 
-        cy.get(organizationModal.nextBtn).should(($button) => {
-            expect($button).to.be.disabled
-        });
+        org.assertNextBtnIsDisabled();
     });
 
     it("Create organization - name with all spaces", () => {
-        cy.get(organizationModal.orgNameInput).type("    ");
+        org.createOrgInvalidTry(data.strings.multipleSpaces);
 
-        cy.get(organizationModal.nextBtn).should(($button) => {
-            expect($button).to.be.disabled
-        });
+        org.assertNextBtnIsDisabled();
     });
 
     it("Create organization - valid organization name", () => {
-        cy.get(organizationModal.orgNameInput).type("Cypress org");
+       org.createOrganization(data.strings.organizationName);
 
-        cy.get(organizationModal.nextBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(organizationModal.nextBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(modal.okBtn)
-            .should("be.visible")
-            .click();
+       org.assertOrganizationIsCreated(data.strings.organizationName);
     });
 
     it("Update organization name - empty name field", () => {
-        cy.get(sidebar.sideMenu.organizationOptions.configurationBtn)
-            .should("be.visible")
-            .click();
+        org.editOrgNameInvalidTry(data.strings.empty);
 
-        cy.get(orgPage.orgNameInput).clear();
-
-        cy.get(orgPage.validationMsgSpan)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.requiredNameField);
-
-        cy.get(orgPage.updateBtn).eq(0).should(($button) => {
-            expect($button).to.be.disabled
-        });
+        org.assertOrgNameIsNotUpdated(0, data.validationMessages.requiredNameField);
     });
 
     it("Update organization name - all spaces", () => {
-        cy.get(orgPage.orgNameInput).type("    ");
+        org.editOrgNameInvalidTry(data.strings.multipleSpaces);
 
-        cy.get(orgPage.validationMsgSpan).eq(0)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.requiredNameField);
-
-        cy.get(orgPage.updateBtn).eq(0).should(($button) => {
-            expect($button).to.be.disabled
-        });
+        org.assertOrgNameIsNotUpdated(0, data.validationMessages.requiredNameField);
     });
 
     it("Update organization name - positive", () => {
-        cy.get(orgPage.orgNameInput).clear().type("Edit Cypress org");
+        org.updateOrgName(data.strings.editedOrgName);
 
-        cy.get(orgPage.updateBtn).eq(0)
-            .should("be.visible")
-            .click();
-
-        cy.get(orgPage.validationMsgSpan).should("not.be.visible");
-
-        cy.get(orgPage.orgNameInput).should("have.value", "Edit Cypress org");
+        org.assertOrgNameIsUpdated(data.strings.editedOrgName);
     });
 
     it("Delete organization - wrong password", () => {
-        cy.get(orgPage.deleteBtn)
-            .scrollIntoView()
-            .should("be.visible").click();
+        org.deleteOrganization(data.invalidPassword.wrongPassword);
 
-        cy.get(modal.confirmActionPassInput).type(data.invalidPassword.wrongPassword);
-
-        cy.get(modal.yesBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(modal.confirmActionH4).should("be.visible");
+        org.assertOrgIsNotDeleted();
     });
 
     it("Delete organization", () => {
-        cy.get(modal.confirmActionPassInput).clear().type(data.user.password);
-
-        cy.get(modal.yesBtn)
-            .should("be.visible")
-            .click();
-            
-        cy.get(myOrganizations.createdOrgDiv).should("not.exist");
+        org.deleteOrganization(data.user.password);
+        
+        org.assertOrgIsDeleted();
     });
 
 });
