@@ -26,7 +26,7 @@ describe("Board CRUD", () => {
         login.assertUserIsLoggedOut();
     });
 
-    it("Create board with no title", () => {
+    it("BOCR-01 Create board with no title", () => {
         board.createBoardFirstStep(data.strings.empty);
 
         board.assertNextBtnIsDisabled();
@@ -34,7 +34,7 @@ describe("Board CRUD", () => {
         board.closeBoardModal();
     });
 
-    it("Create board without selected board type", () => {
+    it("BOCR-02 Create board without selected board type", () => {
         board.createBoardSecondStep(data.strings.boardName);
 
         board.assertNextBtnIsDisabled();
@@ -42,13 +42,13 @@ describe("Board CRUD", () => {
         board.closeBoardModal();
     });
 
-    it("Create board - scrum type", () => {
+    it("BOCR-03 Create board - scrum type", () => {
         board.createBoard(data.strings.boardName);
 
         board.assertBoardIsCreated();
     });
 
-    it("Update board title - empty field", () => {
+    it("BOCR-04 Update board title - empty field", () => {
         board.createBoard(data.strings.boardName);
 
         board.updateBoardName(data.strings.empty);
@@ -56,7 +56,7 @@ describe("Board CRUD", () => {
         board.assertValidationMsg(data.validationMessages.requiredBoardTitle);
     });
 
-    it("Update board title - more than 50 characters", () => {
+    it("BOCR-05 Update board title - more than 50 characters", () => {
         board.createBoard(data.strings.boardName);
 
         board.updateBoardName(data.strings.moreThan50Characters);
@@ -64,7 +64,7 @@ describe("Board CRUD", () => {
         board.assertValidationMsg(data.validationMessages.boardTitleMoreChars);
     });
 
-    it("Update board title - postive", () => {
+    it("BOCR-06 Update board title - postive", () => {
         board.createBoard(data.strings.boardName);
 
         board.updateBoardName(data.strings.editedBoardName);
@@ -74,7 +74,7 @@ describe("Board CRUD", () => {
         board.assertBoardNameIsUpdated(data.strings.editedBoardName);
     });
 
-    it("Delete board", () => {
+    it("BOCR-07 Delete board", () => {
         board.createBoard(data.strings.boardName);
 
         board.deleteBoard();

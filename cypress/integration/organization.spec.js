@@ -20,49 +20,49 @@ describe("Organization CRUD", () => {
         login.assertUserIsLoggedOut();
     });
 
-    it("Create organization - no organization name", () => {
+    it("ORGCR-01 Create organization - no organization name", () => {
         org.createOrgInvalidTry(data.strings.empty);
 
         org.assertNextBtnIsDisabled();
     });
 
-    it("Create organization - name with all spaces", () => {
+    it("ORGCR-02 Create organization - name with all spaces", () => {
         org.createOrgInvalidTry(data.strings.multipleSpaces);
 
         org.assertNextBtnIsDisabled();
     });
 
-    it("Create organization - valid organization name", () => {
+    it("ORGCR-03 Create organization - valid organization name", () => {
        org.createOrganization(data.strings.organizationName);
 
        org.assertOrganizationIsCreated(data.strings.organizationName);
     });
 
-    it("Update organization name - empty name field", () => {
+    it("ORGCR-04 Update organization name - empty name field", () => {
         org.editOrgNameInvalidTry(data.strings.empty);
 
         org.assertOrgNameIsNotUpdated(0, data.validationMessages.requiredNameField);
     });
 
-    it("Update organization name - all spaces", () => {
+    it("ORGCR-05 Update organization name - all spaces", () => {
         org.editOrgNameInvalidTry(data.strings.multipleSpaces);
 
         org.assertOrgNameIsNotUpdated(0, data.validationMessages.requiredNameField);
     });
 
-    it("Update organization name - positive", () => {
+    it("ORGCR-06 Update organization name - positive", () => {
         org.updateOrgName(data.strings.editedOrgName);
 
         org.assertOrgNameIsUpdated(data.strings.editedOrgName);
     });
 
-    it("Delete organization - wrong password", () => {
+    it("ORGCR-07 Delete organization - wrong password", () => {
         org.deleteOrganization(data.invalidPassword.wrongPassword);
 
         org.assertOrgIsNotDeleted();
     });
 
-    it("Delete organization", () => {
+    it("ORGCR-08 Delete organization", () => {
         org.deleteOrganization(data.user.password);
         
         org.assertOrgIsDeleted();

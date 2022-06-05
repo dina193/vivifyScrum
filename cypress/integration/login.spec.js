@@ -16,56 +16,56 @@ describe("Login", () => {
         login.assertUserIsLoggedOut();
     });
 
-    it("Login without any credentials", () => {
+    it("LOG-01 Login without any credentials", () => {
         login.loginViaUI(data.strings.empty, data.strings.empty);
 
         login.assertTwoValidationMsgs(data.validationMessages.emailValidation, data.validationMessages.passwordValidation);
     });
 
-    it("Login with no email and correct password", () => {
+    it("LOG-02 Login with no email and correct password", () => {
         login.loginViaUI(data.strings.empty, data.user.password);
 
         login.assertOneValidationMsg(0, data.validationMessages.emailValidation);
     });
 
-    it("Login with correct email and no password", () => {
+    it("LOG-03 Login with correct email and no password", () => {
         login.loginViaUI(data.user.email, data.strings.empty);
 
         login.assertOneValidationMsg(1, data.validationMessages.passwordValidation);
     });
 
-    it("Login with invalid email - missing '@' sign", () => {
+    it("LOG-04 Login with invalid email - missing '@' sign", () => {
         login.loginViaUI(data.invalidEmail.emailNoMonkeySign, data.user.password);
 
         login.assertOneValidationMsg(0, data.validationMessages.emailValidation);
     });
 
-    it("Login with invalid email - missing dot", () => {
+    it("LOG-05 Login with invalid email - missing dot", () => {
         login.loginViaUI(data.invalidEmail.emailMissingDot, data.user.password);
 
         login.assertOneValidationMsg(0, data.validationMessages.emailValidation);
     });
 
-    it("Login with invalid email - double dot after '@' sign", () => {
+    it("LOG-06 Login with invalid email - double dot after '@' sign", () => {
         login.loginViaUI(data.invalidEmail.emailTwoDots, data.user.password);
 
         login.assertOneValidationMsg(0, data.validationMessages.emailValidation);
     });
 
-    it("Login with incorrect email and correct password", () => {
+    it("LOG-07 Login with incorrect email and correct password", () => {
         login.loginViaUI(data.invalidEmail.wrongEmail, data.user.password);
 
         login.assertEmailPassMismatch(data.validationMessages.emailPassMismatch);
 
     });
 
-    it("Login with correct email and incorrect password", () => {
+    it("LOG-08 Login with correct email and incorrect password", () => {
         login.loginViaUI(data.user.email, data.invalidPassword.wrongPassword);
 
         login.assertEmailPassMismatch(data.validationMessages.emailPassMismatch);
     });
 
-    it("Login with valid credentials", () => {
+    it("LOG-09 Login with valid credentials", () => {
         login.loginViaUI(data.user.email, data.user.password);
 
         login.assertUserIsLoggedIn();
