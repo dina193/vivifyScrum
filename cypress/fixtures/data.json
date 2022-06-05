@@ -22,5 +22,21 @@
         "requiredNameField": "The name field is required",
         "requiredBoardTitle": "The board title field is required",
         "boardTitleMoreChars": "The board title field may not be greater than 50 characters"
+    },
+
+    "strings": {
+        "empty": "{backspace}{enter}",
+        "multipleSpaces": "    ",
+        "organizationName": "Cypress org",
+        "editedOrgName": "Edit Cypress org",
+        "boardName": "First board",
+        "editedBoardName": "Board update",
+        "columnName": "New column",
+        "editedColumnName": "Column update",
+        "taskName": "First task",
+        "editedTaskName": "Task update",
+        "taskDescription": "Some description",
+        "sprintGoal": "This is sprint goal",
+        "moreThan50Characters": "Lorem ipsum dolor sit amet, consectetur erat curae."
     }
 }

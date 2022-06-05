@@ -1,149 +1,74 @@
-import loginPage from "../pages/loginPage.json";
 import data from "../fixtures/data.json";
-import sidebar from "../pages/sidebar.json";
-import header from "../pages/header.json";
+import Login from "../support/classes/login";
+
+const login = new Login();
 
 describe("Login", () => {
     beforeEach(() => {
         cy.visit("/login");
+        
         cy.url().should("contain", "/login");
     });
 
     after(() => {
-        cy.get(sidebar.mainSidebar.myAccountAvatarImg)
-            .should("be.visible")
-            .click();
+        login.logOutViaUI();
 
-        cy.get(sidebar.sideMenu.accountOptions.profileBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(header.logOutBtn)
-            .should("be.visible")
-            .click();
-            
-        cy.get(loginPage.loginHeading).should("be.visible");
+        login.assertUserIsLoggedOut();
     });
 
-    it("Login without any credentials", () => {
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
+    it("LOG-01 Login without any credentials", () => {
+        login.loginViaUI(data.strings.empty, data.strings.empty);
 
-        cy.get(loginPage.validationMsgSpan).should("have.length", 2);
-
-        cy.get(loginPage.validationMsgSpan).should(($validation) => {
-            expect($validation[0]).to.have.text(data.validationMessages.emailValidation)
-            expect($validation[1]).to.have.text(data.validationMessages.passwordValidation)
-        }); 
+        login.assertTwoValidationMsgs(data.validationMessages.emailValidation, data.validationMessages.passwordValidation);
     });
 
-    it("Login with no email and correct password", () => {
-        cy.get(loginPage.passwordInput).type(data.user.password);
+    it("LOG-02 Login with no email and correct password", () => {
+        login.loginViaUI(data.strings.empty, data.user.password);
 
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(loginPage.validationMsgSpan).eq(0)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.emailValidation);
+        login.assertOneValidationMsg(0, data.validationMessages.emailValidation);
     });
 
-    it("Login with correct email and no password", () => {
-        cy.get(loginPage.emailInput).type(data.user.email);
+    it("LOG-03 Login with correct email and no password", () => {
+        login.loginViaUI(data.user.email, data.strings.empty);
 
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(loginPage.validationMsgSpan).eq(1)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.passwordValidation);
+        login.assertOneValidationMsg(1, data.validationMessages.passwordValidation);
     });
 
-    it("Login with invalid email - missing '@' sign", () => {
-        cy.get(loginPage.emailInput).type(data.invalidEmail.emailNoMonkeySign);
+    it("LOG-04 Login with invalid email - missing '@' sign", () => {
+        login.loginViaUI(data.invalidEmail.emailNoMonkeySign, data.user.password);
 
-        cy.get(loginPage.passwordInput).type(data.user.password);
-
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(loginPage.validationMsgSpan).eq(0)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.emailValidation);
+        login.assertOneValidationMsg(0, data.validationMessages.emailValidation);
     });
 
-    it("Login with invalid email - missing dot", () => {
-        cy.get(loginPage.emailInput).type(data.invalidEmail.emailMissingDot);
+    it("LOG-05 Login with invalid email - missing dot", () => {
+        login.loginViaUI(data.invalidEmail.emailMissingDot, data.user.password);
 
-        cy.get(loginPage.passwordInput).type(data.user.password);
-
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(loginPage.validationMsgSpan).eq(0)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.emailValidation);
+        login.assertOneValidationMsg(0, data.validationMessages.emailValidation);
     });
 
-    it("Login with invalid email - double dot after '@' sign", () => {
-        cy.get(loginPage.emailInput).type(data.invalidEmail.emailTwoDots);
+    it("LOG-06 Login with invalid email - double dot after '@' sign", () => {
+        login.loginViaUI(data.invalidEmail.emailTwoDots, data.user.password);
 
-        cy.get(loginPage.passwordInput).type(data.user.password);
-
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(loginPage.validationMsgSpan).eq(0)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.emailValidation);
+        login.assertOneValidationMsg(0, data.validationMessages.emailValidation);
     });
 
-    it("Login with incorrect email and correct password", () => {
-        cy.get(loginPage.emailInput).type(data.invalidEmail.wrongEmail);
+    it("LOG-07 Login with incorrect email and correct password", () => {
+        login.loginViaUI(data.invalidEmail.wrongEmail, data.user.password);
 
-        cy.get(loginPage.passwordInput).type(data.user.password);
+        login.assertEmailPassMismatch(data.validationMessages.emailPassMismatch);
 
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(loginPage.validationOopsSpan)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.emailPassMismatch);
     });
 
-    it("Login with correct email and incorrect password", () => {
-        cy.get(loginPage.emailInput).type(data.user.email);
+    it("LOG-08 Login with correct email and incorrect password", () => {
+        login.loginViaUI(data.user.email, data.invalidPassword.wrongPassword);
 
-        cy.get(loginPage.passwordInput).type(data.invalidPassword.wrongPassword);
-
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.get(loginPage.validationOopsSpan)
-            .should("be.visible")
-            .and("have.text", data.validationMessages.emailPassMismatch);
+        login.assertEmailPassMismatch(data.validationMessages.emailPassMismatch);
     });
 
-    it("Login with valid credentials", () => {
-        cy.get(loginPage.emailInput).type(data.user.email);
+    it("LOG-09 Login with valid credentials", () => {
+        login.loginViaUI(data.user.email, data.user.password);
 
-        cy.get(loginPage.passwordInput).type(data.user.password);
-
-        cy.get(loginPage.loginBtn)
-            .should("be.visible")
-            .click();
-
-        cy.url().should("contain", "/my-organizations");
-
-        cy.get(sidebar.mainSidebar.myAccountAvatarImg).should("be.visible");
+        login.assertUserIsLoggedIn();
     });
 
 });
