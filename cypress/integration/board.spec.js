@@ -78,6 +78,7 @@ describe("Board CRUD", () => {
         board.createBoard(data.strings.boardName);
 
         board.deleteBoard();
+        
     });
 
 });

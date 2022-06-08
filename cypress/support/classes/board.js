@@ -4,6 +4,8 @@ import sidebar from "../../pages/sidebar.json";
 import boardPage from "../../pages/boardPage.json";
 import orgPage from "../../pages/organizationPage.json";
 
+let boardId;
+
 class Board {
     closeBoardModal() {
         cy.get(boardModal.closeModalBtn).click();
@@ -12,7 +14,7 @@ class Board {
     deleteOrg(password) {
         cy.get(sidebar.mainSidebar.orgFromSidebarSpan).click();
 
-        cy.get(sidebar.sideMenu.organizationOptions.configurationBtn).click();
+        cy.get(sidebar.sideMenu.organizationOptions.configurationBtn).click({force: true});
 
         cy.get(boardPage.deleteBtn)
             .scrollIntoView()
@@ -44,6 +46,11 @@ class Board {
     }
 
     createBoard(boardName) {
+        cy.intercept({
+            method: "POST",
+            url: "https://cypress-api.vivifyscrum-stage.com/api/v2/boards",
+        }).as("createBoard");
+
         this.createBoardSecondStep(boardName);
 
         cy.get(boardModal.scrumBoardCheckbox).click();
@@ -53,6 +60,11 @@ class Board {
         cy.get(boardModal.nextBtn).click();
 
         cy.get(boardModal.nextBtn).click();
+
+        cy.wait("@createBoard").then(({ response }) => {
+            expect(response.statusCode).to.equal(201);
+            boardId = response.body.id;
+        });
     }
 
     updateBoardName(editedBoardName) {
@@ -72,7 +84,12 @@ class Board {
     }
 
     deleteBoard() {
-        cy.get(sidebar.sideMenu.boardOptions.configurationBtn).click();
+        // cy.intercept({
+        //     method: "DELETE",
+        //     url: `https://cypress-api.vivifyscrum-stage.com/api/v2/boards/${boardId}`
+        // }).as("deleteBoard")
+
+        cy.get(sidebar.sideMenu.boardOptions.configurationBtn).click({ force: true });
         
         cy.get(boardPage.deleteBtn)
             .scrollIntoView()
@@ -80,6 +97,10 @@ class Board {
             .click();
 
         cy.get(modal.yesBtn).click();
+
+        // cy.wait("@deleteBoard").then((response) => {
+        //     console.log(response)
+        // })
     }
 
     assertValidationMsg(message) {
@@ -99,6 +120,7 @@ class Board {
     assertBoardIsCreated() {
         cy.get(sidebar.sideMenu.boardOptions.productBacklogBtn).should("be.visible");
     }
+
 }
 
 export default Board;

@@ -53,20 +53,20 @@ describe("Login", () => {
     });
 
     it("LOG-07 Login with incorrect email and correct password", () => {
-        login.loginViaUI(data.invalidEmail.wrongEmail, data.user.password);
+        login.interceptInvalidLogin(data.invalidEmail.wrongEmail, data.user.password)
 
         login.assertEmailPassMismatch(data.validationMessages.emailPassMismatch);
 
     });
 
     it("LOG-08 Login with correct email and incorrect password", () => {
-        login.loginViaUI(data.user.email, data.invalidPassword.wrongPassword);
+        login.interceptInvalidLogin(data.user.email, data.invalidPassword.wrongPassword);
 
         login.assertEmailPassMismatch(data.validationMessages.emailPassMismatch);
     });
 
     it("LOG-09 Login with valid credentials", () => {
-        login.loginViaUI(data.user.email, data.user.password);
+        login.interceptLogin(data.user.email, data.user.password);
 
         login.assertUserIsLoggedIn();
     });
