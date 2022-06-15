@@ -57,13 +57,13 @@ describe("Organization CRUD", () => {
     });
 
     it("ORGCR-07 Delete organization - wrong password", () => {
-        org.deleteOrganization(data.invalidPassword.wrongPassword);
+        org.deleteOrganization(data.invalidPassword.wrongPassword, 403);
 
         org.assertOrgIsNotDeleted();
     });
 
     it("ORGCR-08 Delete organization", () => {
-        org.deleteOrganization(data.user.password);
+        org.deleteOrganization(data.user.password, 201);
         
         org.assertOrgIsDeleted();
     });

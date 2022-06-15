@@ -14,6 +14,8 @@ class Login {
     }
 
     logOutViaUI() {
+        cy.intercept("POST", "https://cypress-api.vivifyscrum-stage.com/api/v2/logout").as("logOut");
+
         cy.get(sidebar.mainSidebar.myAccountAvatarImg)
             .should("be.visible")
             .click();
@@ -21,7 +23,10 @@ class Login {
         cy.get(sidebar.sideMenu.accountOptions.profileBtn).click();
 
         cy.get(header.logOutBtn).click();
-            
+
+        cy.wait("@logOut").should(({ response }) => {
+            expect(response.statusCode).to.equal(201);
+        });     
     }
 
     assertUserIsLoggedIn() {
@@ -52,6 +57,52 @@ class Login {
         cy.get(loginPage.validationOopsSpan)
             .should("be.visible")
             .and("have.text", message)
+    }
+
+    interceptInvalidLogin(email, pass) {
+        cy.intercept("POST", "https://cypress-api.vivifyscrum-stage.com/api/v2/login").as("invalidLogin");
+
+        this.loginViaUI(email, pass);
+
+        cy.wait("@invalidLogin").should(({ response }) => {
+            expect(response.statusCode).to.equal(401);
+            expect(response.statusMessage).to.contain("Unauthorized");
+        });
+    }
+
+    interceptLogin(email, pass) {
+        cy.intercept("POST", "https://cypress-api.vivifyscrum-stage.com/api/v2/login").as("login");
+
+        this.loginViaUI(email, pass);
+
+        cy.wait("@login").should(({ response }) => {
+            expect(response.statusCode).to.equal(200);
+        });
+    }
+
+    interceptLogOut() {
+        cy.intercept("POST", "https://cypress-api.vivifyscrum-stage.com/api/v2/logout").as("logOut");
+
+        this.logOutViaUI();
+
+        cy.wait("@logOut").should(({ response }) => {
+            expect(response.statusCode).to.equal(201);
+        });
+    }
+
+    loginViaBackend(email, password) {
+        cy.request({
+            method: "POST",
+            url: "https://cypress-api.vivifyscrum-stage.com/api/v2/login ",
+            body: {
+                email: email,
+                "g-recaptcha-response": "",
+                password: password
+            }}).then((response) => {
+                expect(response.status).to.equal(200);
+                expect(response.body).to.have.property("token");
+                window.localStorage.setItem("userToken", `${response.body.token}`);
+            });
     }
     
 }
