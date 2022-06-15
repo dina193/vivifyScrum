@@ -89,21 +89,6 @@ class Login {
             expect(response.statusCode).to.equal(201);
         });
     }
-
-    loginViaBackend(email, password) {
-        cy.request({
-            method: "POST",
-            url: "https://cypress-api.vivifyscrum-stage.com/api/v2/login ",
-            body: {
-                email: email,
-                "g-recaptcha-response": "",
-                password: password
-            }}).then((response) => {
-                expect(response.status).to.equal(200);
-                expect(response.body).to.have.property("token");
-                window.localStorage.setItem("userToken", `${response.body.token}`);
-            });
-    }
     
 }
 
