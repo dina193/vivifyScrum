@@ -10,7 +10,7 @@ class Login {
 
         cy.get(loginPage.loginBtn)
             .should("be.visible")
-            .click();       
+            .click();
     }
 
     logOutViaUI() {
@@ -93,15 +93,15 @@ class Login {
     loginViaBackend(email, password) {
         cy.request({
             method: "POST",
-            url: "https://cypress-api.vivifyscrum-stage.com/api/v2/login",
+            url: "https://cypress-api.vivifyscrum-stage.com/api/v2/login ",
             body: {
                 email: email,
+                "g-recaptcha-response": "",
                 password: password
             }}).then((response) => {
-                console.log(response)
                 expect(response.status).to.equal(200);
                 expect(response.body).to.have.property("token");
-                window.localStorage.setItem("token", response.body.token);
+                window.localStorage.setItem("userToken", `${response.body.token}`);
             });
     }
     

@@ -84,11 +84,6 @@ class Board {
     }
 
     deleteBoard() {
-        // cy.intercept({
-        //     method: "DELETE",
-        //     url: `https://cypress-api.vivifyscrum-stage.com/api/v2/boards/${boardId}`
-        // }).as("deleteBoard")
-
         cy.get(sidebar.sideMenu.boardOptions.configurationBtn).click({ force: true });
         
         cy.get(boardPage.deleteBtn)
@@ -97,10 +92,6 @@ class Board {
             .click();
 
         cy.get(modal.yesBtn).click();
-
-        // cy.wait("@deleteBoard").then((response) => {
-        //     console.log(response)
-        // })
     }
 
     assertValidationMsg(message) {
