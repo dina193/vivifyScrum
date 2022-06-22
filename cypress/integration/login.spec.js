@@ -1,22 +1,20 @@
-
-
 import data from "../fixtures/data.json";
 import Login from "../support/classes/login";
 
 const login = new Login();
 
 describe("Login", () => {
-    // beforeEach(() => {
-    //     cy.visit("/login");
+    beforeEach(() => {
+        cy.visit("/login");
         
-    //     cy.url().should("contain", "/login");
-    // });
+        cy.url().should("contain", "/login");
+    });
 
-    // after(() => {
-    //     login.logOutViaUI();
+    after(() => {
+        cy.logout();
 
-    //     login.assertUserIsLoggedOut();
-    // });
+        login.assertUserIsLoggedOut();
+    });
 
     it("LOG-01 Login without any credentials", () => {
         login.loginViaUI(data.strings.empty, data.strings.empty);
@@ -72,31 +70,5 @@ describe("Login", () => {
 
         login.assertUserIsLoggedIn();
     });
-
-    it.only("logBE", () => {
-        login.loginViaBackend(data.user.email, data.user.password)
-        // cy.visit('/')
-        
-
-        // let userToken = window.localStorage.getItem("token")
-        // console.log(userToken)
-        // cy.request({
-        //     method: "GET",
-        //     url: "https://cypress-api.vivifyscrum-stage.com/api/v2/my-organizations",
-        //     headers: {
-        //         authorization: `Bearer ${userToken}`
-        //     }
-        // }).then((response) => {
-        //     console.log(response)
-        // })
-
-        cy.visit("/my-organizations")
-
-        // login.createOrgApi(data.strings.organizationName)
-    })
-
-    it.only("fu", () => {
-        login.createOrgApi(data.strings.organizationName)
-    })
 
 });

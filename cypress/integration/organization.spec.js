@@ -7,15 +7,13 @@ const org = new Organization();
 
 describe("Organization CRUD", () => {
     beforeEach(() => {
-        cy.visit("/login");
+        cy.loginViaApi(data.user.email, data.user.password);
 
-        login.loginViaUI(data.user.email, data.user.password);
-
-        login.assertUserIsLoggedIn();
+        cy.visit("/my-organizations");
     });
 
     after(() => {
-        login.logOutViaUI();
+        cy.logout();
 
         login.assertUserIsLoggedOut();
     });
@@ -66,6 +64,12 @@ describe("Organization CRUD", () => {
         org.deleteOrganization(data.user.password, 201);
         
         org.assertOrgIsDeleted();
+    });
+
+    it("ORGCR-09 Create and update organization via api", () => {
+        cy.createOrgViaApi(data.strings.organizationName);
+
+        cy.updateOrgViaApi(data.strings.editedOrgName);
     });
 
 });

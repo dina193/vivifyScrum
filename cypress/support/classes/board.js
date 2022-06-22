@@ -3,6 +3,7 @@ import modal from "../../pages/confirmationModal.json";
 import sidebar from "../../pages/sidebar.json";
 import boardPage from "../../pages/boardPage.json";
 import orgPage from "../../pages/organizationPage.json";
+import myOrgs from "../../pages/myOrganizationsPage.json";
 
 let boardId;
 
@@ -110,6 +111,11 @@ class Board {
 
     assertBoardIsCreated() {
         cy.get(sidebar.sideMenu.boardOptions.productBacklogBtn).should("be.visible");
+    }
+
+    openOrg() {
+        cy.get(myOrgs.createdOrgDiv).click();
+        cy.get(modal.okBtn).click();
     }
 
 }
