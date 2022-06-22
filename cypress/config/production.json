@@ -1,0 +1,6 @@
+{
+    "baseUrl": "https://vivifyscrum.com",
+    "env": {
+        "environment": "production"
+    }
+}

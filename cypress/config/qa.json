@@ -1,0 +1,6 @@
+{
+    "baseUrl": "https://vivifyscrum-stage.com",
+    "env": {
+        "environment": "qa"
+    }
+}
