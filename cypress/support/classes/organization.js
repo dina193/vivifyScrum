@@ -132,24 +132,6 @@ class Organization {
         cy.get(myOrgs.createdOrgDiv).should("not.exist");
     }
     
-    // createOrgApi(orgName) {
-    //     cy.request({
-    //         method: 'POST', 
-    //         url: 'https://cypress-api.vivifyscrum-stage.com/api/v2/organizations',
-    //         headers: {
-    //             // 'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${window.localStorage.getItem('token')}`
-    //         },
-    //         body: {
-    //             name: orgName
-    //         }
-    //     }).then((response) => {
-    //         console.log(response)
-    //         expect(response.status).to.equal(201)
-    //         orgId = response.body.id;
-    //         console.log(orgId)
-    //     })
-    // }
 }
 
 export default Organization;
