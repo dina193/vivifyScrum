@@ -1,0 +1,10 @@
+{
+    "apiBaseUrl": "https://cypress-api.vivifyscrum-stage.com",
+    "user": {
+        "email": "dina@gmail.com",
+        "password": "test1234"
+    },
+    "wrongData": {
+        "string": "daohg"
+    }
+}
